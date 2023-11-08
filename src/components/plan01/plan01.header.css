@@ -1,0 +1,7 @@
+.bg-img {
+    background-position:    center;
+    background-size:        cover;
+    background-image:       url('../../assets/plan01/background-header.jpg');
+    height:                 90%;
+    width:                  100%;
+}

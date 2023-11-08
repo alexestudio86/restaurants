@@ -1,0 +1,21 @@
+.gray-one {
+    background-color:   rgb(241, 241, 241);
+}
+.gray-two {
+    background-color:   rgb(190, 190, 190);
+}
+.gray-three {
+    background-color:    rgb(158, 158, 158);
+}
+.gray-four {
+    background-color:    rgb(97, 97, 97);
+    color:              #f1f1f1!important;
+}
+.gray-five {
+    background-color:    rgb(63, 63, 63);
+    color:              #f1f1f1!important;
+}
+.gray-six {
+    background-color:    rgb(0, 0, 0);
+    color:               #f1f1f1!important;
+}
