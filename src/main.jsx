@@ -4,6 +4,9 @@ import { RouterProvider } from 'react-router-dom';
 import { rutas } from './router/rutas';
 import './index.css';
 
+import './fontAwesome';
+
+
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

@@ -17,8 +17,8 @@ export function Plan01Navbar () {
     ]
 
     return (
-        <nav className="w3-top">
-            <div className="container">
+        <nav className="sticky-top">
+            <div className="w3-row p-0 container">
                 <div className="w3-bar w3-blue-gray">
                     <div className="w3-bar-item">
                         <a className="w3-button w3-wide text-uppercase" href="#home">Home</a>

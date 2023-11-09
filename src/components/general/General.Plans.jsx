@@ -4,7 +4,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 
-import Placeholder from '../assets/General.Placeholder-web.jpg'
+import Placeholder from '../../assets/general/General.Placeholder-web.jpg'
 
 
 export function GeneralPlans ( {idxPkg} ) {

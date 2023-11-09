@@ -73,7 +73,7 @@ ul {
     font: bold 18px 'Amatic', sans-serif;
 }
 .price:after{
-    content: " usd";
+    content: " mxn";
     font: bold 18px 'Amatic', sans-serif;
     text-transform: uppercase;
 }

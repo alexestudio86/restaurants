@@ -1,6 +1,6 @@
-import { GeneralNavbar } from '../components/General.Navbar';
 import { Outlet } from 'react-router-dom';
-import {GeneralFooter} from '../components/General.Footer'
+import { GeneralNavbar } from '../../components/general/General.Navbar';
+import {GeneralFooter} from '../../components/general/General.Footer'
 
 
 export function GeneralLayout () {

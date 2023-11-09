@@ -1,0 +1,1 @@
+export const BLOGGER_URI = 'https://www.googleapis.com/blogger/v3/blogs';

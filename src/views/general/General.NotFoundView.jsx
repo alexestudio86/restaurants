@@ -1,4 +1,4 @@
-import {GeneralErrorPage} from "../components/General.ErrorPage"
+import {GeneralErrorPage} from "../../components/general/General.ErrorPage"
 
 export function GeneralNotFoundView () {
     return (

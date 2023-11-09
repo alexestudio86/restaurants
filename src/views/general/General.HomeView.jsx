@@ -1,4 +1,4 @@
-import { GeneralServices } from '../components/General.Services';
+import { GeneralServices } from '../../components/general/General.Services';
 
 
 function GeneralHomeView() {
