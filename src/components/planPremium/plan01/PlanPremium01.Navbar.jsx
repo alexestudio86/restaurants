@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom"
 
 
-export function Plan01Navbar () {
+export function PlanPremium01Navbar () {
 
     const navElements = [
         {

@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
 
 
-export function GeneralCompactNavbar () {
+export function PlansCompactNavbar () {
 
     const sections = [
         {

@@ -1,11 +1,11 @@
 import { Outlet } from "react-router-dom";
-import { GeneralCompactNavbar } from '../../components/plans/General.CompactNavbar'
+import { PlansCompactNavbar } from '../../components/plans/Plans.CompactNavbar'
 
 export function PlansLayout () {
     return (
         <>
             <div>
-                <GeneralCompactNavbar />
+                <PlansCompactNavbar />
             </div>
             <div>
                 <Outlet />
