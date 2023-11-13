@@ -3,16 +3,12 @@ import { Link } from "react-router-dom";
 
 
 // General function for get to unique label
-const filterLabels = (e) => {
-    if(e.length === 0){
-      return 'Varios'
-    }else if (e.length === 1) {
-      return e[0].term
-    } else {
-      return e[1].term
-    }
-}
+const retrieveLabels = ( evt ) => {
 
+  const terminos = [ ...( evt.map( e => e.term ) ).filter( e => isNaN( parseInt(e) ) ) ];
+  return terminos
+
+}
 
 // General function fot get to unique image
 const filterPostImages = ( evt, body ) => {
@@ -36,9 +32,24 @@ const filterPostImages = ( evt, body ) => {
   }
 }
 
+// Extract text of json html elements
+const retrieveDescription = ( evt ) => {
+  const divElement = document.createElement('div');
+  divElement.innerHTML = evt;
+  return divElement.innerText
+}
+
+// Extract numbers only, and return 999 if evt has 2 prices
+const retrievePrice = ( evt ) => {
+  const prices = [ ...( evt.map( e => e.term ) ).filter( Number ) ];
+  return(
+    prices.length === 1 ? prices : 999
+  )
+}
+
 export function PlanBasic01Products () {
 
-  const { entry: items } = useLoaderData();
+  const { posts } = useLoaderData();
 
   const navigate = useNavigate();
   const [params, setParams] = useSearchParams()
@@ -56,31 +67,28 @@ export function PlanBasic01Products () {
   return (
     <main className="w3-row w3-light-gray">
       <div className="container">
-        <h1 className="w3-center w3-xxlarge w3-padding-64">Nuestro Productos</h1>
-        { items ? items.map( ( item, index ) => (
+        <h1 className="w3-center w3-xxlarge w3-padding-64">Nuestros Productos</h1>
+        { posts ? posts.map( ( post, index ) => (
           <article key={index} className='w3-half p-1' >
-            <Link to={ `/products/${item.id.$t}` } style={ {textDecoration: 'none'} } >
+            <Link to={ `/products/${post.id.$t}` } style={ {textDecoration: 'none'} } >
               <div className='w3-row w3-white w3-border-bottom w3-hover-opacity'>
                 <div className='w3-col s5' >
-                  <img className='w-100' alt={item.title.$t} src={ filterPostImages(item.media$thumbnail.url, item.content.$t) } width='auto' height='200px' />
+                  <img className='w-100' alt={post.title.$t} src={ filterPostImages(post.media$thumbnail.url, post.content.$t) } width='auto' height='200px' />
                 </div>
                 <div className='w3-rest px-1'>
                   <div className="w3-row pt-2">
                     <div className="w3-col s12">
-                      <h1 className='w3-large text-uppercase fw-bold' style={ {height: '55px'} }>{ item.title.$t }</h1> 
-                      <span className='w3-large w3-text-teal'>{ filterLabels( item.category ) }</span>
-                      <p className='w3-medium w3-justify' style={ {height: '60px'} }>{ item.content.$t }</p>
+                      <h1 className='w3-large text-uppercase fw-bold' style={ {height: '55px'} }>{ post.title.$t }</h1>
+                      { post.category && retrieveLabels( post.category ).map( (p, idx) => <span key={idx} className="w3-tag w3-teal w3-small m-1">{p}</span>) }
+                      <p className='w3-medium w3-justify' style={ {height: '60px'} }>{ retrieveDescription(post.content.$t) }</p>
                     </div>
                   </div>
                 </div>
               </div>
               <div className="w3-row w3-white">
                 <div className="w3-col s12 w3-right-align">
-                  <span className="w3-right w3-xxlarge w3-text-teal price fw-bold">{ item.category[0].term }</span>
+                  <span className="w3-right w3-xxlarge w3-text-teal price fw-bold">{ post.category ? retrievePrice(post.category) : 999 }</span>
                 </div>
-              </div>
-              <div>
-
               </div>
             </Link>
           </article>
@@ -91,7 +99,7 @@ export function PlanBasic01Products () {
           (
             <div className='w3-col s12 py-2'>
               { params.get('some') && <button className='w3-button w3-blue w3-left' >Anterior</button> }
-              { items &&  <button className='w3-button w3-blue w3-right' onClick={handleNext} >Siguiente</button> }
+              { posts &&  <button className='w3-button w3-blue w3-right' onClick={handleNext} >Siguiente</button> }
             </div>
           )
         }

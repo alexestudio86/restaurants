@@ -10,16 +10,16 @@ export function PlanBasicSelectId () {
 
 
     switch (id) {
-        case 'plan-01':
+        case 'option-01':
             return (
                 <>
                     <PlanBasic01HomeView />
                 </>
             )
-        case "plan-02":
+        case "option-02":
             return (
                 <>
-                    Soy un plan premium
+                    Soy el plan02
                 </>
             )
         default:

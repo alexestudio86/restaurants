@@ -47,7 +47,7 @@ export function GeneralPlans ( {idxPkg} ) {
             >
                 {packagesOptions[idxPkg].elements.map( (pkgOpt, idx) => (
                     <SwiperSlide key={idx}>
-                        <Link to={`basics/${pkgOpt.subPath}`} className='w3-padding-large text-decoration-none'>
+                        <Link to={`planes/basic/${pkgOpt.subPath}`} className='w3-padding-large text-decoration-none'>
                             <figure className='w3-border w3-border-light-gray w3-hover-shadow'>
                                 <img src={pkgOpt.picture} alt="Imagen 01" width='300' height='300' style={ {width: '100%', height: 'auto', objectFit: 'cover'} } />
                                 <div className="w3-padding w3-center">

@@ -5,12 +5,14 @@ import { BLOGGER_URI } from "../../db.js";
 export async function getBasicData () {
     //The follow reques is made for make multiple request in the same time
     try {
-        //const generalData   = await fetch(`https://www.blogger.com/feeds/${ import.meta.env.VITE_BLOG_ID }/posts/full?alt=json`);
-        const generalData   = await fetch(`https://www.blogger.com/feeds/${ import.meta.env.VITE_BLOG_ID }/posts/full?alt=json`);
-        //const generalData   = await fetch(`https://jsonplaceholder.typicode.com/posts`);
-        const {feed} = await generalData.json();
-        const {title, subtitle, entry} = feed
-        return { title, subtitle, entry }
+        const getPosts   = await fetch(`https://www.blogger.com/feeds/${ import.meta.env.VITE_BLOG_ID }/posts/full?alt=json`);
+        const {feed: feedPost} = await getPosts.json();
+        const {title, subtitle, entry:posts} = feedPost;
+        const getPages   = await fetch(`https://www.blogger.com/feeds/${ import.meta.env.VITE_BLOG_ID }/pages/full?alt=json`);
+        const {feed: feedPages} = await getPages.json();
+        const {entry: pages} = feedPages;
+        console.log(pages)
+        return { title, subtitle, posts, pages }
     } catch (error) {
         console.log(error)
     }
