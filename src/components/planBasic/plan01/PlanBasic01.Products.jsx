@@ -1,5 +1,6 @@
 import { useLoaderData, useSearchParams, useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useState } from "react";
 
 
 // General function for get to unique label
@@ -51,6 +52,8 @@ export function PlanBasic01Products () {
 
   const { posts } = useLoaderData();
 
+  const [item, setItem] = useState();
+
   const navigate = useNavigate();
   const [params, setParams] = useSearchParams()
 
@@ -70,27 +73,43 @@ export function PlanBasic01Products () {
         <h1 className="w3-center w3-xxlarge w3-padding-64">Nuestros Productos</h1>
         { posts ? posts.map( ( post, index ) => (
           <article key={index} className='w3-half p-1' >
-            <Link to={ `/products/${post.id.$t}` } style={ {textDecoration: 'none'} } >
-              <div className='w3-row w3-white w3-border-bottom w3-hover-opacity'>
-                <div className='w3-col s5' >
-                  <img className='w-100' alt={post.title.$t} src={ filterPostImages(post.media$thumbnail.url, post.content.$t) } width='auto' height='200px' />
-                </div>
-                <div className='w3-rest px-1'>
-                  <div className="w3-row pt-2">
-                    <div className="w3-col s12">
-                      <h1 className='w3-large text-uppercase fw-bold' style={ {height: '55px'} }>{ post.title.$t }</h1>
-                      { post.category && retrieveLabels( post.category ).map( (p, idx) => <span key={idx} className="w3-tag w3-teal w3-small m-1">{p}</span>) }
-                      <p className='w3-medium w3-justify' style={ {height: '60px'} }>{ retrieveDescription(post.content.$t) }</p>
+            <div className='w3-row w3-white w3-border-bottom'>
+              <div className='w3-col s5' >
+                <img className='w-100' alt={post.title.$t} src={ filterPostImages(post.media$thumbnail.url, post.content.$t) } width='auto' height='200px' />
+              </div>
+              <div className='w3-rest px-1'>
+                <div className="w3-row pt-2">
+                  <div className="w3-col s12">
+                    <div className="w3-row">
+                      <h1 className='w3-col s8 w3-large text-uppercase fw-bold'>{ post.title.$t }</h1>
+                      <div className="w3-rest">
+                        <span className="w3-right w3-xxlarge w3-text-teal price fw-bold">{ post.category ? retrievePrice(post.category) : 999 }</span>
+                      </div>
                     </div>
+                    { post.category && retrieveLabels( post.category ).map( (p, idx) => <span key={idx} className="w3-tag w3-teal w3-small m-1">{p}</span>) }
+                    <p className='w3-medium w3-justify' style={ {height: '60px'} }>{ retrieveDescription(post.content.$t) }</p>
                   </div>
                 </div>
               </div>
-              <div className="w3-row w3-white">
-                <div className="w3-col s12 w3-right-align">
-                  <span className="w3-right w3-xxlarge w3-text-teal price fw-bold">{ post.category ? retrievePrice(post.category) : 999 }</span>
-                </div>
+            </div>
+            <div className="w3-row w3-white">
+              <div className="w3-col s4 w3-center">
+                <button className="w3-button">
+                  <FontAwesomeIcon icon="fa-solid fa-minus" />
+                </button>
               </div>
-            </Link>
+              <div className="w3-col s4 w3-center">
+                <input className="w3-input w3-center" type="number" value={item.input || 0} />
+              </div>
+              <div className="w3-col s4">
+                <button className="w3-button" onClick={ () => setItem(...item, {
+                  id: post.id,
+                  input: 1
+                })}>
+                  <FontAwesomeIcon icon="fa-solid fa-plus" />
+                </button>
+              </div>
+            </div>
           </article>
         )) :
           <p className='py-2'>No se encontraron productos</p>

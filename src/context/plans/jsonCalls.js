@@ -1,3 +1,4 @@
+import Axios from 'axios';
 import { BLOGGER_URI } from "../../db.js";
 
 
@@ -11,7 +12,6 @@ export async function getBasicData () {
         const getPages   = await fetch(`https://www.blogger.com/feeds/${ import.meta.env.VITE_BLOG_ID }/pages/full?alt=json`);
         const {feed: feedPages} = await getPages.json();
         const {entry: pages} = feedPages;
-        console.log(pages)
         return { title, subtitle, posts, pages }
     } catch (error) {
         console.log(error)
