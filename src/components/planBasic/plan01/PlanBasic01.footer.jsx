@@ -2,7 +2,7 @@ export function PlanBasic01Footer () {
     return (
         <footer className="w3-row container w3-blue-gray rounded-top" id="footer">
             <div className="w3-half w3-container w3-padding">
-                <p className="w3-xlarge">722 631 4416</p>
+                <p className="w3-xlarge">722 631 4416.</p>
             </div>
             <div className="w3-half w3-container w3-padding w3-right-align">
                 <a className="w3-padding-small" href="#" target="_blank">

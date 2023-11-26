@@ -1,4 +1,5 @@
 import { useLoaderData, useSearchParams, useNavigate } from "react-router-dom";
+import { useUpdateCarContext } from "../../../context/plans/CarBasicProvider";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 
@@ -48,11 +49,16 @@ const retrievePrice = ( evt ) => {
   )
 }
 
+
 export function PlanBasic01Products () {
 
+  //Recovery car data
+  const updateCar   =   useUpdateCarContext();
+
+  //Get post from loader
   const { posts } = useLoaderData();
 
-  const [item, setItem] = useState();
+  const [items, setItems] = useState();
 
   const navigate = useNavigate();
   const [params, setParams] = useSearchParams()
@@ -94,18 +100,25 @@ export function PlanBasic01Products () {
             </div>
             <div className="w3-row w3-white">
               <div className="w3-col s4 w3-center">
-                <button className="w3-button">
+                <button className="w3-button w3-teal w-100">
                   <FontAwesomeIcon icon="fa-solid fa-minus" />
                 </button>
               </div>
               <div className="w3-col s4 w3-center">
-                <input className="w3-input w3-center" type="number" value={item.input || 0} />
+                <span>{ items ? items.find( () => items.id === post.id) : 0 }</span>
               </div>
-              <div className="w3-col s4">
-                <button className="w3-button" onClick={ () => setItem(...item, {
-                  id: post.id,
-                  input: 1
-                })}>
+              <div className="w3-col s4 w3-center">
+                <button className="w3-button w3-teal w-100" onClick={ () => {
+                  updateCar(
+                    {
+                      actionType: 'CHECK_ITEM'
+                    },{
+                      id:       post.id,
+                      name:     post.title  ||  'Dummy Title',
+                      picture:  post.media$thumbnail.url
+                    }
+                  )
+                }}>
                   <FontAwesomeIcon icon="fa-solid fa-plus" />
                 </button>
               </div>

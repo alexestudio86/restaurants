@@ -1,5 +1,7 @@
 import { Outlet } from "react-router-dom";
-import { PlansCompactNavbar } from '../../components/plans/Plans.CompactNavbar'
+import { CarProvider } from "../../context/plans/CarBasicProvider";
+import { PlansCompactNavbar } from "../../components/plans/Plans.CompactNavbar";
+
 
 export function PlansLayout () {
     return (
@@ -7,9 +9,9 @@ export function PlansLayout () {
             <div>
                 <PlansCompactNavbar />
             </div>
-            <div>
+            <CarProvider>
                 <Outlet />
-            </div>
+            </CarProvider>
         </>
     )
 }

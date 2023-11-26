@@ -1,5 +1,13 @@
 import { useLoaderData } from "react-router-dom";
 
+
+// Extract text of json html elements
+const retrieveDescription = ( evt ) => {
+    const divElement = document.createElement('div');
+    divElement.innerHTML = evt;
+    return divElement.innerText
+}
+
 export function PlanBasic01Promos () {
 
     const { pages } = useLoaderData();
@@ -16,11 +24,10 @@ export function PlanBasic01Promos () {
                                 <img className="w-100" src={page.media$thumbnail.url} alt={page.title.$t} width='72' height='72' style={ {height: '300px', objectFit: 'cover'} } />
                                 <div className="w3-container">
                                     <figcaption className="w3-xlarge" style={ {height: '64'} }>{page.title.$t}</figcaption>
-                                    <p className="w3-medium" style={ {height: '64'} }>{page.content.$t}</p>
+                                    <p className="w3-medium" style={ {height: '64'} }>{ retrieveDescription(page.content.$t) }</p>
                                 </div>
                             </figure>
                         </div>
-                        page.title.$t
                     </div>
                 ) )}
             </div>
