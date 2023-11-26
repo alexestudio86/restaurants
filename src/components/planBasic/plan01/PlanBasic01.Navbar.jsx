@@ -1,10 +1,10 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useCarContext } from '../../../context/plans/CarBasicProvider';
 import './planBasic01.navbar.css';
 
 
-export function PlanBasic01Navbar ( {setSidebarLeftShow} ) {
+export function PlanBasic01Navbar ( {sidebarLeftShow, setSidebarLeftShow, sidebarRightShow, setSidebarRightShow} ) {
 
     const navElements = [
         {
@@ -41,12 +41,24 @@ export function PlanBasic01Navbar ( {setSidebarLeftShow} ) {
             <div className="w3-row p-0 container">
                 <div className="w3-bar w3-blue-gray">
                     <div className="w3-hide-medium">
-                        <button className="w3-button w3-teal w3-xlarge w3-left w3-hide-large" onClick={ () => setSidebarLeftShow(true) } >
+                        <button className={`w3-button w3-xlarge w3-left w3-hide-large ${!sidebarRightShow && 'w3-teal'}`} disabled={sidebarRightShow} onClick={ () => {
+                            if( !document.body.style.overflow ){
+                                setSidebarLeftShow(true);
+                                document.body.style.setProperty('overflow', 'hidden')
+                            }
+                        } } >
                             <FontAwesomeIcon icon="fa-solid fa-burger" />
                         </button>
-                        <button className="w3-button w3-teal w3-xlarge w3-right w3-hide-large">
-                            <FontAwesomeIcon icon="fa-solid fa-cart-shopping" />
-                            <span className="w3-badge">{ totalItems }</span>
+                        <button className={`w3-button w3-xlarge w3-right w3-hide-large ${sidebarRightShow ? 'w3-light-gray' : 'w3-teal'}`} onClick={ () => {
+                            setSidebarRightShow(!sidebarRightShow);
+                            if( sidebarRightShow ){
+                                document.body.style.removeProperty('overflow')
+                            }else{
+                                document.body.style.setProperty('overflow', 'hidden')
+                            }
+                        } }>
+                            <FontAwesomeIcon icon={`fa-solid ${sidebarRightShow ? 'fa-circle-arrow-right' : 'fa-cart-shopping'}`} />
+                            <span className="w3-badge w3-small">{ totalItems }</span>
                         </button>
                     </div>
                     <div className="w3-hide-small">
