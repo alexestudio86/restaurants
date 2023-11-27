@@ -1,6 +1,6 @@
 export function PlanBasic01Location () {
     return (
-        <div className="w3-row py-5 w3-white">
+        <div id="location" className="w3-row py-5 w3-white">
             <div className="container">
                 <h1 className="w3-center w3-xxlarge w3-padding-32">Ubicación</h1>
                 <div className="w3-half">

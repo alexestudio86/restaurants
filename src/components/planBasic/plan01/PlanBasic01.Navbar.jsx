@@ -1,23 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { navElements } from "./planBasic01.NavElements";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useCarContext } from '../../../context/plans/CarBasicProvider';
 import './planBasic01.navbar.css';
 
 
 export function PlanBasic01Navbar ( {sidebarLeftShow, setSidebarLeftShow, sidebarRightShow, setSidebarRightShow} ) {
-
-    const navElements = [
-        {
-            title:      'Promociones',
-            path:       '#promotions'
-        },{
-            title:      'Menú',
-            path:       '#menu'
-        },{
-            title:      'Contacto',
-            path:       '#contact'
-        }
-    ]
 
     const car = useCarContext();
     const [totalItems, setTotalItems] = useState(0);
@@ -37,7 +25,7 @@ export function PlanBasic01Navbar ( {sidebarLeftShow, setSidebarLeftShow, sideba
     },[car])
 
     return (
-        <nav className="ae86-sticky-top">
+        <nav id="navbar" className="ae86-sticky-top" style={ {zIndex: 1} }>
             <div className="w3-row p-0 container">
                 <div className="w3-bar w3-blue-gray">
                     <div className="w3-hide-medium">
@@ -67,7 +55,7 @@ export function PlanBasic01Navbar ( {sidebarLeftShow, setSidebarLeftShow, sideba
                         </div>
                         <div className="w3-right p-2">
                             { navElements.map( (navElement, index) => (
-                                <a key={index} href={navElement.path} className="w3-bar-item w3-button">{navElement.title}</a>
+                                index > 0 && <a key={index} href={navElement.path} className="w3-bar-item w3-button">{navElement.title}</a>
                             ) ) }
                         </div>
                     </div>

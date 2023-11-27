@@ -74,7 +74,7 @@ export function PlanBasic01Products () {
   
 
   return (
-    <main className="w3-row w3-light-gray">
+    <main id="products" className="w3-row w3-light-gray">
       <div className="container">
         <h1 className="w3-center w3-xxlarge w3-padding-64">Nuestros Productos</h1>
         { posts ? posts.map( ( post, index ) => (

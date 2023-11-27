@@ -8,7 +8,7 @@ export function PlanBasic01Header () {
     const {title, subtitle} = useLoaderData();
 
     return (
-        <header className="w3-row bg-plan01-img container" id="header">
+        <header id="header" className="w3-row bg-plan01-img container">
             <div className="w3-col m6 w3-center w3-hide-small">
                 <div className='w3-cell-row h-100'>
                     <div className="w3-cell w3-cell-middle vh-100 w3-center">
