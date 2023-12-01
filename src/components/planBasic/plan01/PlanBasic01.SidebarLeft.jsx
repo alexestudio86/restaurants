@@ -9,7 +9,7 @@ export function PlanBasic01SidebarLeft ( {sidebarLeftShow, setSidebarLeftShow} )
                 <div className="w3-cell w3-cell-middle">
                     <div className="w3-round-large w3-white" style={ {padding: '0px 4px 0px 0px'} }>
                         { navElements.map( (navElement, index) => (
-                            <button className="w3-bar-item w3-button w3-xlarge" onClick={ () => {
+                            <button key={index} className="w3-bar-item w3-button w3-xlarge" onClick={ () => {
                                 setSidebarLeftShow(false);
                                 document.body.style.removeProperty('overflow')
                                 window.location.href = navElement.path;

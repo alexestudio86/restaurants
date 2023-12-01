@@ -5,21 +5,17 @@ import { useCarContext } from '../../../context/plans/CarBasicProvider';
 import './planBasic01.navbar.css';
 
 
-export function PlanBasic01Navbar ( {sidebarLeftShow, setSidebarLeftShow, sidebarRightShow, setSidebarRightShow} ) {
+export function PlanBasic01Navbar ( {setSidebarLeftShow, sidebarRightShow, setSidebarRightShow} ) {
 
     const car = useCarContext();
     const [totalItems, setTotalItems] = useState(0);
 
     useEffect( () => {
-        car.length > 0 ? setTotalItems(
-                Array.from( car.map( c => {
-                    return Array.from( c.variants.map( (v,i) => {
-                        if( i !== 1 ){
-                            return 1
-                        }
-                        return i
-                    } ) ).reduce( (x,y) => x+y )
-                } ) ).reduce( (a,b) => a+b )
+        car.length > 0
+        ? setTotalItems(
+                car.reduce( (accumulator, object) => {
+                   return accumulator + object.quantity 
+                }, 0)        
             )
         : setTotalItems(0)
     },[car])
@@ -30,14 +26,59 @@ export function PlanBasic01Navbar ( {sidebarLeftShow, setSidebarLeftShow, sideba
                 <div className="w3-bar w3-blue-gray">
                     <div className="w3-hide-medium">
                         <button className={`w3-button w3-xlarge w3-left w3-hide-large ${!sidebarRightShow && 'w3-teal'}`} disabled={sidebarRightShow} onClick={ () => {
-                            if( !document.body.style.overflow ){
-                                setSidebarLeftShow(true);
-                                document.body.style.setProperty('overflow', 'hidden')
+                            window.scrollTo(0,0);
+                            switch (window.location.hash) {
+                                case '#root':
+                                    setTimeout( () => {
+                                        if( !document.body.style.overflow ){
+                                            setSidebarLeftShow(true);
+                                            document.body.style.setProperty('overflow', 'hidden')
+                                        }
+                                    }, 100)
+                                    break;
+
+                                case '#promotions':
+                                    setTimeout( () => {
+                                        if( !document.body.style.overflow ){
+                                            setSidebarLeftShow(true);
+                                            document.body.style.setProperty('overflow', 'hidden')
+                                        }
+                                    }, 200)
+                                    break;
+
+                                case '#products':
+                                    setTimeout( () => {
+                                        if( !document.body.style.overflow ){
+                                            setSidebarLeftShow(true);
+                                            document.body.style.setProperty('overflow', 'hidden')
+                                        }
+                                    }, 300)
+                                    break;
+
+                                    case '#location':
+                                        setTimeout( () => {
+                                            if( !document.body.style.overflow ){
+                                                setSidebarLeftShow(true);
+                                                document.body.style.setProperty('overflow', 'hidden')
+                                            }
+                                        }, 400)
+                                        break;
+
+                                default:
+                                    if( !document.body.style.overflow ){
+                                        setSidebarLeftShow(true);
+                                        document.body.style.setProperty('overflow', 'hidden')
+                                    }
+                                    break;
                             }
                         } } >
                             <FontAwesomeIcon icon="fa-solid fa-burger" />
                         </button>
                         <button className={`w3-button w3-xlarge w3-right w3-hide-large ${sidebarRightShow ? 'w3-light-gray' : 'w3-teal'}`} onClick={ () => {
+                            //Remove hash
+                            window.history.replaceState("", document.title, window.location.pathname);
+                            //Go to root
+                            document.getElementById('root').scrollIntoView();
                             setSidebarRightShow(!sidebarRightShow);
                             if( sidebarRightShow ){
                                 document.body.style.removeProperty('overflow')

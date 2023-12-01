@@ -2,133 +2,110 @@ import { useState, useEffect, useContext, createContext } from "react";
 
 
 // function for create hooks
-const updateCarContext = createContext();
 
-export function useUpdateCarContext () {
-    return useContext(updateCarContext)
+
+const carChangesTypesContext = createContext();
+export function useCarChangesTypesContext () {
+  return useContext(carChangesTypesContext)
+};
+
+const updateCarChangesTypesContext = createContext();
+export function useUpdateCarChangesTypesContext () {
+  return useContext(updateCarChangesTypesContext)
 }
+
+const carChangesContext = createContext();
+export function useCarChangesContext () {
+    return useContext(carChangesContext)
+};
 
 const carContext = createContext();
-
 export function useCarContext () {
   return useContext(carContext)
-}
+};
+
+const updateCarContext = createContext();
+export function useUpdateCarContext () {
+    return useContext(updateCarContext)
+};
 
 export function CarProvider ( {children} ) {
-    const [car, setCar] = useState( JSON.parse(localStorage.getItem('car')) || []  );
-    const updateCar = ( instruction, item ) => {
-      switch ( instruction.actionType ){
-        case 'CHECK_ITEM':
-          //Compare ID
-          const searchID = car.indexOf( car.find( c => c.id === item.id ) );
-          if( searchID >= 0 ){
-            //Search item for id
-            const { variants } = car[searchID];
-            const searchVariants = variants.indexOf( variants.find( variant => variant.name === item.variants[0].name ) )
-            
-            //Item founded for variants
-            if( searchVariants >= 0 ){
-                const newCar = car.map( c => {
-                  if( c.id === item.id ){
-                    //cVariants = c.variants
-                    return {
-                      id:         item.id,
-                      name:       item.name,
-                      picture:    item.picture,
-                      variants:   c.variants.map( v => {
-                        if( v.name === item.variants[0].name ){
-                          return {
-                            name:       item.variants[0].name,
-                            price:      item.variants[0].price,
-                            quantity:   item.variants[0].quantity
-                          }
-                        }
-                        return v
-                      } )
-                    }
-                  }
-                  return c
-                } )
-                setCar(newCar)
-                setCarChangesTypes( 'VARIANT_UPDATED' );
-            }else{
-              //Variant not found an created
-              const newCar = car.map( c => {
-                if( c.id === item.id ){
-                  //cVariants = c.variants
-                  return {
-                    id:         item.id,
-                    name:       item.name,
-                    picture:    item.picture,
-                    variants:   [...c.variants, item.variants[0]]
-                  }
-                }
-                return c
-              } )
-              setCar(newCar)
-              setCarChangesTypes( 'VARIANT_CREATED' );
+
+  //Car changes type
+  const [carChangesTypes, setCarChangesTypes] = useState( null );
+  const updateCarChangesTypes = ( instruction = {carStatus: null} ) => {
+    setCarChangesTypes(instruction.carStatus)
+  }
+
+  //
+  const [car, setCar] = useState( JSON.parse(localStorage.getItem('car')) || []  );
+  const updateCar = ( instruction, item ) => {
+    switch ( instruction.actionType ){
+      case 'CHECK_ITEM':
+        // Compare ID
+        const searchID = car.indexOf( car.find( c => c.id === item.id ) );
+        // Search for ID
+        if( searchID >= 0 ){
+          // Item found an update
+          const newCar = car.map( c => {
+            if( c.id === item.id ){
+              //cVariants = c.variants
+              return {
+                id:         item.id,
+                name:       item.name,
+                picture:    item.picture,
+                price:      item.price,
+                quantity:   item.quantity+1
+
+              }
             }
-          }else{
-            //Item not found and created
-            setCarChangesTypes( 'ITEM_CREATED' );
-            setCar( [...car, item] )
-          }
-          break;
-        case 'DELETE_ITEM':
-          //Delete one item with variable
-          if( item.variableID >= 0 ){
-            //Compare ID
-            const searchID = car.indexOf( car.find( c => c.id === item.itemID ) );
-            //if item has multiple variable
-            if( car[searchID].variants.length >1 ){
-              const newCar = car.map( c => {
-                if( c.id === item.itemID ){
-                  return {
-                    ...c,
-                    variants: c.variants.filter( (v,i) => i !== item.variableID )
-                  }
-                }
-                return c
-              })
-              console.log(car[searchID])
-              setCarChangesTypes( 'VARIANT_DELETED' );
-              setCar( newCar )
-            }else{
-            //if item has one variable
-              setCarChangesTypes( 'VARIANT_DELETED' );
-              setCar( car.filter( (c) => c.id !== item.itemID ) )
-            }
-          }else{
+            return c
+          } );
+          setCar(newCar);
+          setCarChangesTypes( { carStatus: 'ITEM_UPDATED'} );
+        }else{
+          //Item not found and created
+          setCar( [...car, item] );
+          setCarChangesTypes( { carStatus: 'ITEM_CREATED'} );
+        }
+        break;
+      case 'DELETE_ITEM':
+        //Delete one item with variable
           //Delete item without variable
-            setCarChangesTypes( 'ITEM_DELETED' );
-            setCar( car.filter( (c) => c.id !== item.itemID ) )
-          }
-          break;
-        case 'CLEAR_ALL':
-          setCar( [] )
-          break;
-        default:
-          console.log('Action no Set')
-  
-      }
+          setCarChangesTypes( {carStatus: 'ITEM_DELETED'} );
+          setCar( car.filter( (c) => c.id !== item.itemID ) )
+        break;
+      case 'CLEAR_ALL':
+        setCar( [] )
+        break;
+      default:
+        console.log('Action no Set')
+        break;
     }
+  }
   
-    //Guest name
-    const [guestName, setGuestName] = useState('');
-    const updateGuestName = ( name ) => {
-      setGuestName(name)
-    }
-  
-    useEffect( () => {
-      const carString = JSON.stringify(car);
-      localStorage.setItem('car', carString);
-    },[car])
-  
-    return (
+  //Guest name
+  const [guestName, setGuestName] = useState('');
+  const updateGuestName = ( name ) => {
+    setGuestName(name)
+  }
+
+  // Check car length
+  useEffect( () => {
+    const carString = JSON.stringify(car);
+    localStorage.setItem('car', carString);
+  },[car])
+
+  return (
+    <updateCarChangesTypesContext.Provider value={updateCarChangesTypes}>
+      <carChangesTypesContext.Provider value={carChangesTypes}>
         <updateCarContext.Provider value={updateCar}>
           <carContext.Provider value={car}>
             {children}
           </carContext.Provider>
         </updateCarContext.Provider>
-    )
-  }
+      </carChangesTypesContext.Provider>
+    </updateCarChangesTypesContext.Provider>
+  )
+
+}

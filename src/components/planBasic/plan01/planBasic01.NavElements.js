@@ -1,7 +1,7 @@
 export const navElements = [
     {
         title:       'Home',
-        path:       '#navbar',
+        path:       '#root',
         icon:       'fa fa-home',
     },{
         title:      'Promociones',
