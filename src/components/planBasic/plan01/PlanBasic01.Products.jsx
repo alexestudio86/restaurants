@@ -12,7 +12,7 @@ const dummyDescription  = 'Lorem ipsum dolor sit amet, consectetur adipiscing el
 //Retrieve image
 const filterPostImages = ( evt ) => {
   if(evt.url){
-    return evt.url.replace("s72","s320")
+    return evt.url.replace("s72","w320-h160")
   }else {
     const tmp = document.createElement('div');
     tmp.innerHTML = evt.$t;
@@ -21,9 +21,9 @@ const filterPostImages = ( evt ) => {
     if( allImages.length === 0 ){
       return dummyImage
     }else if( allImages.length === 1 ){
-      return allImages[0].replace('s1024', 's320')
+      return allImages[0].replace('s1024', 'w320-h160')
     }else{
-      return allImages[0].replace('s1024', 's320')
+      return allImages[0].replace('s1024', 'w320-h160')
       }
   }
 }
@@ -66,7 +66,7 @@ const retrieveDescription = ( evt ) => {
 //Retrieve Thumbnail
 const filterThumbnailImages = ( evt ) => {
   if(evt.url){
-    return evt.url.replace("s72","s90")
+    return evt.url.replace("s72","w72-h72")
   }else {
     const tmp = document.createElement('div');
     tmp.innerHTML = evt.$t;
@@ -75,9 +75,9 @@ const filterThumbnailImages = ( evt ) => {
     if( allImages.length === 0 ){
       return dummyImage
     }else if( allImages.length === 1 ){
-      return allImages[0].replace('s1024', 's90')
+      return allImages[0].replace('s1024', 'w72-h72')
     }else{
-      return allImages[0].replace('s1024', 's90')
+      return allImages[0].replace('s1024', 'w72-h72')
       }
   }
 }
@@ -129,43 +129,46 @@ export function PlanBasic01Products () {
     <main id="products" className="w3-row w3-light-gray">
       <div className="container">
         <h1 className="w3-center w3-xxlarge w3-padding-64">Nuestros Productos</h1>
-        { posts ? posts.map( ( post, index ) => (
-          <article key={index} className='w3-row py-1' id={retrievePostID(post.id.$t)} >
-            <div className="w3-row w3-white">
-              <div className='w3-col s4' >
-                <img className='w-100' alt={retrieveTitle(post.title.$t)} src={ filterThumbnailImages(post.media$thumbnail ? post.media$thumbnail : post.content) } width='70px' height='100px' style={ {objectFit: 'cover'} } />
-              </div>
-              <div className='w3-col s8'>
-                <div className="w3-row">
-                  <div className="w3-col s8">
-                    <h1 className='w3-small text-uppercase fw-bold'>{ retrieveTitle(post.title.$t) }</h1>
-                    <span className="w3-medium w3-text-teal price fw-bold">{ retrievePrice(post.category ? post.category : [{'term': dummyPrice}]) }</span>
-                  </div>
-                  <div className="w3-col s4">
-                    <button className="w3-button w-100" onClick={ () => {
-                      updateCar(
-                        {
-                          actionType: 'CHECK_ITEM'
-                        },{
-                          id:         retrievePostID(post.id.$t),
-                          name:       retrieveTitle(post.title.$t),
-                          picture:    filterThumbnailImages(post.media$thumbnail ? post.media$thumbnail : post.content),
-                          price:      retrievePrice(post.category ? post.category : [{'term': dummyPrice}]),
-                          quantity:   1
-                        }
-                      )
-                    }}>
-                      <i data-ident='icon' className="w3-large">+</i>
-                    </button>
-                  </div>
+        <div className="w3-row">
+          { posts ? posts.map( ( post, index ) => (
+            <article key={index} className='w3-col m6 p-1' id={retrievePostID(post.id.$t)} >
+              <div className="w3-row w3-white">
+                <div className='w3-col m5 s3' >
+                  <img className='w-100 w3-hide-small' alt={retrieveTitle(post.title.$t)} src={ filterPostImages(post.media$thumbnail ? post.media$thumbnail : post.content) } width='320px' height='160px' style={ {objectFit: 'cover'} } />
+                  <img className='w-100 w3-hide-medium w3-hide-large w3-circle' alt={retrieveTitle(post.title.$t)} src={ filterThumbnailImages(post.media$thumbnail ? post.media$thumbnail : post.content) } width='100%' height='auto' style={ {objectFit: 'cover'} } />
                 </div>
-                <p className='w3-small w3-justify' style={ {height: '60px'} }>{ retrieveDescription(post.content.$t) }</p>
+                <div className='w3-col m7 s9'>
+                  <div className="w3-row">
+                    <div className="w3-col s8 w3-container">
+                      <h1 className='text-uppercase fw-bold' style={ {fontSize: '1rem'} }>{ retrieveTitle(post.title.$t) }</h1>
+                      <span className="w3-text-teal price fw-bold" style={ {fontSize: '1rem'}}>{ retrievePrice(post.category ? post.category : [{'term': dummyPrice}]) }</span>
+                    </div>
+                    <div className="w3-col s4">
+                      <button className="w3-hide-mediium w3-hide-large w3-button w-100" onClick={ () => {
+                        updateCar(
+                          {
+                            actionType: 'CHECK_ITEM'
+                          },{
+                            id:         retrievePostID(post.id.$t),
+                            name:       retrieveTitle(post.title.$t),
+                            picture:    filterThumbnailImages(post.media$thumbnail ? post.media$thumbnail : post.content),
+                            price:      retrievePrice(post.category ? post.category : [{'term': dummyPrice}]),
+                            quantity:   1
+                          }
+                        )
+                      }}>
+                        <i data-ident='icon' className="w3-large">+</i>
+                      </button>
+                    </div>
+                  </div>
+                  <p className='w3-justify w3-container py-1' style={ {fontSize: '1rem', height: '60px'} }>{ retrieveDescription(post.content.$t) }</p>
+                </div>
               </div>
-            </div>
-          </article>
-        )) :
-          <p className='py-2'>No se encontraron productos</p>
-        }
+            </article>
+          )) :
+            <p className='py-2'>No se encontraron productos</p>
+          }
+        </div>
     </div>
   </main>
   )

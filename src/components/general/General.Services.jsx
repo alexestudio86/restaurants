@@ -2,6 +2,7 @@ import { useState } from 'react';
 import './general.services.css';
 import { packagesOptions } from './packagesOptions.js';
 import { GeneralPlansModal } from './General.PlansModal';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 
 export function GeneralServices () {
@@ -13,7 +14,7 @@ export function GeneralServices () {
 
     return (
         <>
-            <div className="mt-5">
+            <div className="py-5 w3-container">
                 <h1 className="w3-xxlarge uppercase py-5 text-uppercase">Soluciones para Restaurantes</h1>
                 <div className='w3-row'>
                     { packagesOptions.map( (product, index) => (                    
@@ -22,7 +23,10 @@ export function GeneralServices () {
                                 <div className='w3-cell w3-cell-middle' style={ {backgroundColor: '#f1f1f1'} }>
                                     <button className={`w3-button w-100 w3-xlarge ${ indexPackage == index && product.color }`} onClick={ () => (
                                         setIndexPackage(index)
-                                    )} >{product.title}</button>
+                                    )} >
+                                        <span className='w3-hide-small'>{product.title}</span>
+                                        <span className='w3-hide-medium w3-hide-large'><FontAwesomeIcon icon={product.icon} /></span>
+                                    </button>
                                 </div>
                             </div>
                         </div>

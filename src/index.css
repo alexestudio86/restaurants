@@ -70,10 +70,10 @@ ul {
 
 .price:before {
     content:"$ ";
-    font: bold 18px 'Amatic', sans-serif;
+    font: bold 0.8rem 'Amatic', sans-serif;
 }
 .price:after{
     content: " mxn";
-    font: bold 18px 'Amatic', sans-serif;
+    font: bold 0.8rem 'Amatic', sans-serif;
     text-transform: uppercase;
 }

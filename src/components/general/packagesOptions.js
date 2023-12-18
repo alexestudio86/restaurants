@@ -3,6 +3,7 @@ import Placeholder from '../../assets/general/General.Placeholder-web.jpg'
 export const packagesOptions = [
     {
         title:      'Demo Basic',
+        icon:       'fa-solid fa-list',
         nickName:   'Básico',
         features:    [
             'Landing Page',
@@ -37,6 +38,7 @@ export const packagesOptions = [
         ]
     },{
         title:      'Demo Premium',
+        icon:       'fa-solid fa-table-list',
         nickName:   'Premium',
         features:    [
             'Asesoría personalizada',
@@ -57,6 +59,7 @@ export const packagesOptions = [
         ]
     },{
         title:      'Demo Platinum',
+        icon:       'fa-solid fa-rectangle-list',
         nickName:   'Platinum',
         features:    [
             'Asesoría personalizada',
