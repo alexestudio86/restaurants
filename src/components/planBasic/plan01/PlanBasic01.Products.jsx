@@ -14,17 +14,7 @@ const filterPostImages = ( evt ) => {
   if(evt.url){
     return evt.url.replace("s72","w320-h160")
   }else {
-    const tmp = document.createElement('div');
-    tmp.innerHTML = evt.$t;
-    const getImages = tmp.querySelectorAll('img');
-    const allImages = Array.from(getImages).map( img => img.getAttribute('src') )
-    if( allImages.length === 0 ){
-      return dummyImage
-    }else if( allImages.length === 1 ){
-      return allImages[0].replace('s1024', 'w320-h160')
-    }else{
-      return allImages[0].replace('s1024', 'w320-h160')
-      }
+    return evt
   }
 }
 
@@ -68,17 +58,7 @@ const filterThumbnailImages = ( evt ) => {
   if(evt.url){
     return evt.url.replace("s72","w72-h72")
   }else {
-    const tmp = document.createElement('div');
-    tmp.innerHTML = evt.$t;
-    const getImages = tmp.querySelectorAll('img');
-    const allImages = Array.from(getImages).map( img => img.getAttribute('src') )
-    if( allImages.length === 0 ){
-      return dummyImage
-    }else if( allImages.length === 1 ){
-      return allImages[0].replace('s1024', 'w72-h72')
-    }else{
-      return allImages[0].replace('s1024', 'w72-h72')
-      }
+    return evt
   }
 }
 
@@ -134,8 +114,8 @@ export function PlanBasic01Products () {
             <article key={index} className='w3-col m6 p-1' id={retrievePostID(post.id.$t)} >
               <div className="w3-row w3-white">
                 <div className='w3-col m5 s3' >
-                  <img className='w-100 w3-hide-small' alt={retrieveTitle(post.title.$t)} src={ filterPostImages(post.media$thumbnail ? post.media$thumbnail : post.content) } width='320px' height='160px' style={ {objectFit: 'cover'} } />
-                  <img className='w-100 w3-hide-medium w3-hide-large w3-circle' alt={retrieveTitle(post.title.$t)} src={ filterThumbnailImages(post.media$thumbnail ? post.media$thumbnail : post.content) } width='100%' height='auto' style={ {objectFit: 'cover'} } />
+                  <img className='w-100 w3-hide-small' alt={retrieveTitle(post.title.$t)} src={ filterPostImages(post.media$thumbnail ? post.media$thumbnail : dummyImage) } width='320px' height='160px' style={ {objectFit: 'cover'} } />
+                  <img className='w-100 w3-hide-medium w3-hide-large w3-circle' alt={retrieveTitle(post.title.$t)} src={ filterThumbnailImages(post.media$thumbnail ? post.media$thumbnail : dummyImage) } width='100%' height='auto' style={ {objectFit: 'cover'} } />
                 </div>
                 <div className='w3-col m7 s9'>
                   <div className="w3-row">
@@ -151,8 +131,15 @@ export function PlanBasic01Products () {
                           },{
                             id:         retrievePostID(post.id.$t),
                             name:       retrieveTitle(post.title.$t),
-                            picture:    filterThumbnailImages(post.media$thumbnail ? post.media$thumbnail : post.content),
-                            price:      retrievePrice(post.category ? post.category : [{'term': dummyPrice}]),
+                            picture:    filterThumbnailImages(post.media$thumbnail ? post.media$thumbnail : dummyImage),
+                            variants:   [
+                              {
+                                  name:       'Dummy Variant Details',
+                                  price:      300,
+                                  quantity:   1
+                              }
+                            ],
+                            price:      retrievePrice(post.category ? post.category : dummyPrice),
                             quantity:   1
                           }
                         )
