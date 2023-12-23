@@ -21,7 +21,7 @@ export function GeneralPlans ( {idxPkg} ) {
                 effect={'coverflow'}
                 centeredSlides={true}
 
-                initialSlide={1}
+                initialSlide={0}
                 coverflowEffect={{
                     rotate: 50,
                     stretch: 0,

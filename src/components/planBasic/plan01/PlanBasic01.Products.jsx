@@ -134,13 +134,11 @@ export function PlanBasic01Products () {
                             picture:    filterThumbnailImages(post.media$thumbnail ? post.media$thumbnail : dummyImage),
                             variants:   [
                               {
-                                  name:       'Dummy Variant Details',
-                                  price:      300,
-                                  quantity:   1
+                                name:       'Dummy Variant Details',
+                                price:      retrievePrice(post.category ? post.category : dummyPrice),
+                                quantity:   1
                               }
                             ],
-                            price:      retrievePrice(post.category ? post.category : dummyPrice),
-                            quantity:   1
                           }
                         )
                       }}>

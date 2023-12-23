@@ -54,9 +54,13 @@ export function CarProvider ( {children} ) {
                 id:         item.id,
                 name:       item.name,
                 picture:    item.picture,
-                price:      item.price,
-                quantity:   item.quantity+1
-
+                variants:   [
+                  {
+                    name:       '',
+                    price:      item.price,
+                    quantity:   item.quantity+1
+                  }
+                ],
               }
             }
             return c

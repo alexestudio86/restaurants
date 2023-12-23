@@ -13,9 +13,20 @@ export function PlanBasic01Navbar ( {setSidebarLeftShow, sidebarRightShow, setSi
     useEffect( () => {
         car.length > 0
         ? setTotalItems(
-                car.reduce( (accumulator, object) => {
-                   return accumulator + object.quantity 
-                }, 0)        
+            Array.from(
+                car.map( c => {
+                    return Array.from( c.variants.map( (v,i) => {
+                                    return v.quantity
+                                }
+                            )        
+                        ).reduce( (accumulator, object) => {
+                            return accumulator + object.quantity 
+                         }, 0)
+                    }
+                )
+            ).reduce( (accumulator, object) => {
+                return accumulator + object.quantity 
+             }, 0)        
             )
         : setTotalItems(0)
     },[car])
