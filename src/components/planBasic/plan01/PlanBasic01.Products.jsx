@@ -5,9 +5,11 @@ import dummyImage from '../../../assets/general/dummy-product.jpg'
 
 
 //Dummies
+const dummyLabel        = 'Sin Categoría';
 const dummyPrice        = 999;
-const dummyTitle        = 'Lorem Ipsum';
-const dummyDescription  = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua';
+const dummyTitle        = 'Sin Nombre';
+const dummyVariant      = '';
+const dummyDescription  = 'Sin descripción';
 
 //Retrieve image
 const filterPostImages = ( evt ) => {
@@ -27,10 +29,10 @@ const retrieveTitle = ( evt ) => {
 }
 
 //Retrieve label
-const retrieveLabels = ( evt ) => {
+const retrieveCategories = ( evt ) => {
 
-  const terminos = [ ...( evt.map( e => e.term ) ).filter( e => isNaN( parseInt(e) ) ) ];
-  return terminos
+  const labelTerms = [ ...( evt.map( e => e.term ) ).filter( e => isNaN( parseInt(e) ) ) ];
+  return labelTerms
 
 }
 
@@ -73,9 +75,6 @@ export function PlanBasic01Products () {
   //Get post from loader
   const { posts } = useLoaderData();
   
-  //Recovery car hook
-  const updateCar   =   useUpdateCarContext();
-  
   //Get Car
   const car = useCarContext();
   useEffect( () => {
@@ -105,6 +104,9 @@ export function PlanBasic01Products () {
     //const found = car.find( c => c.id === retrievePostID(evt) );
   }, [car])
 
+  //Hook update car
+  const updateCar   =   useUpdateCarContext();
+
   return (
     <main id="products" className="w3-row w3-light-gray">
       <div className="container">
@@ -131,12 +133,15 @@ export function PlanBasic01Products () {
                           },{
                             id:         retrievePostID(post.id.$t),
                             name:       retrieveTitle(post.title.$t),
+                            category:   retrieveCategories(post.category ? post.category : [{'term': dummyLabel}]),
                             picture:    filterThumbnailImages(post.media$thumbnail ? post.media$thumbnail : dummyImage),
                             variants:   [
                               {
-                                name:       'Dummy Variant Details',
-                                price:      retrievePrice(post.category ? post.category : dummyPrice),
-                                quantity:   1
+                                vDiscount:    0,
+                                vName:        '',
+                                vPicture:     '',
+                                vPrice:       retrievePrice(post.category ? post.category : dummyPrice),
+                                vQuantity:    1
                               }
                             ],
                           }

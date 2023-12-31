@@ -1,40 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { navElements } from "./planBasic01.NavElements";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useCarContext } from '../../../context/plans/CarBasicProvider';
+import { useTotalItemsContext } from '../../../context/plans/CarBasicProvider';
 import './planBasic01.navbar.css';
 
 
 export function PlanBasic01Navbar ( {setSidebarLeftShow, sidebarRightShow, setSidebarRightShow} ) {
 
-    const car = useCarContext();
-    const [totalItems, setTotalItems] = useState(0);
+    // TotalItems
+    const totalItems = useTotalItemsContext();
 
-    useEffect( () => {
-        car.length > 0
-        ? setTotalItems(
-            Array.from(
-                car.map( c => {
-                    return Array.from( c.variants.map( (v,i) => {
-                                    return v.quantity
-                                }
-                            )        
-                        ).reduce( (accumulator, object) => {
-                            return accumulator + object.quantity 
-                         }, 0)
-                    }
-                )
-            ).reduce( (accumulator, object) => {
-                return accumulator + object.quantity 
-             }, 0)        
-            )
-        : setTotalItems(0)
-    },[car])
 
     return (
         <nav id="navbar" className="ae86-sticky-top" style={ {zIndex: 1} }>
             <div className="w3-row p-0 container">
                 <div className="w3-bar w3-blue-gray">
+                    {/*Mobile*/}
                     <div className="w3-hide-medium">
                         <button className={`w3-button w3-xlarge w3-left w3-hide-large ${!sidebarRightShow && 'w3-teal'}`} disabled={sidebarRightShow} onClick={ () => {
                             window.scrollTo(0,0);
@@ -97,8 +78,10 @@ export function PlanBasic01Navbar ( {setSidebarLeftShow, sidebarRightShow, setSi
                                 document.body.style.setProperty('overflow', 'hidden')
                             }
                         } }>
-                            <FontAwesomeIcon icon={`fa-solid ${sidebarRightShow ? 'fa-circle-arrow-right' : 'fa-cart-shopping'}`} />
-                            <span className="w3-badge w3-small">{ totalItems }</span>
+                            { sidebarRightShow
+                            ? <FontAwesomeIcon className="w3-animate-left" icon={`fa-solid ${sidebarRightShow ? 'fa-circle-arrow-right' : 'fa-cart-shopping'}`} />
+                            : <span className="w3-animate-right w3-badge w3-white w3-medium w3-text-teal">{ totalItems }</span>
+                            }
                         </button>
                     </div>
                     <div className="w3-hide-small">
