@@ -3,7 +3,7 @@ import { useCarContext, useTotalItemsContext, useUpdateCarContext } from "../../
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
-export function PlanbBasic01SidebarRight ( {sidebarRightShow, setModalShow} ) {
+export function PlanbBasic01SidebarRight ( {sidebarRightShow, setModal} ) {
 
     //Hool fpr retrieve Car
     const car = useCarContext();
@@ -24,7 +24,12 @@ export function PlanbBasic01SidebarRight ( {sidebarRightShow, setModalShow} ) {
                                 <div className="w3-right">
                                     {v.vQuantity < 2
                                     ? <button className="w3-button w3-light-gray w3-text-red" onClick={ () => {
-                                        setModalShow(true)
+                                        setModal({
+                                            ...modal,
+                                            showModal:  true,
+                                            itemId:     c.id,
+                                            vIdx:       i
+                                        })
                                     }}>
                                         <FontAwesomeIcon icon="fa-solid fa-trash" />
                                     </button>

@@ -12,17 +12,21 @@ import {PlanBasic01Modal} from '../../../components/planBasic/plan01/PlanBasic01
 
 export function PlanBasic01HomeView () {
 
-    const [modalShow, setModalShow] = useState(false);
+    const [modal, setModal] = useState({
+        showModal:  false,
+        itemId:     null,
+        vIdx:       null
+    });
     const [sidebarLeftShow, setSidebarLeftShow] = useState(false);
     const [sidebarRightShow, setSidebarRightShow] = useState(false);
 
     return (
         <>
-            <PlanBasic01Modal modalShow={modalShow} setModalShow={setModalShow} />
+            <PlanBasic01Modal modal={modal} setModal={setModal} />
             <PlanBasic01SidebarLeft sidebarLeftShow={sidebarLeftShow} setSidebarLeftShow={setSidebarLeftShow} />
             <div>
                 <PlanBasic01Navbar sidebarLeftShow={sidebarLeftShow} setSidebarLeftShow={setSidebarLeftShow} sidebarRightShow={sidebarRightShow} setSidebarRightShow={setSidebarRightShow} />
-                <PlanbBasic01SidebarRight sidebarRightShow={sidebarRightShow} />
+                <PlanbBasic01SidebarRight sidebarRightShow={sidebarRightShow} setModal={setModal} />
                 <PlanBasic01Header />
                 <PlanBasic01Promos />
                 <PlanBasic01Products />

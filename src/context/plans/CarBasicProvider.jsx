@@ -114,9 +114,32 @@ export function CarProvider ( {children} ) {
         break;
       case 'DELETE_ITEM':
         //Delete one item with variable
+        if( item.vIdx >= 0 ){
+          //Find item for ID
+          const searchID = car.indexOf( car.find( c => c.id === item.id ) );
+          //if item has multiple variable
+          if( car[searchID].variants.length >1 ){
+            const newCar = car.map( c => {
+              if( c.id === item.id ){
+                return {
+                  ...c,
+                  variants: c.variants.filter( (v,i) => i !== item.vIdx )
+                }
+              }
+              return c
+            })
+            setCarChangesTypes( 'VARIANT_DELETED' );
+            setCar( newCar )
+          }else{
+            //if item has one variable
+            setCarChangesTypes( 'VARIANT_DELETED' );
+            setCar( car.filter( (c) => c.id !== item.id ) )
+          }
+        }else{
           //Delete item without variable
           setCarChangesTypes( {carStatus: 'ITEM_DELETED'} );
-          setCar( car.filter( (c) => c.id !== item.itemID ) )
+          setCar( car.filter( (c) => c.id !== item.id ) );
+        }
         break;
       case 'CLEAR_ALL':
         setCar( [] )

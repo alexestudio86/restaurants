@@ -1,0 +1,7 @@
+#modal {
+    z-index:            9;
+    width:              80%;
+    height:             auto;
+    border:             0;
+    margin:             auto;
+}

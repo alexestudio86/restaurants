@@ -13,8 +13,16 @@ const dummyDescription  = 'Sin descripción';
 
 //Retrieve image
 const filterPostImages = ( evt ) => {
+  //Old regex
+  const oldRegex = /\/(s[0-9]|w[0-9]|h[0-9]|c|d|-rw|p|k|no|nu).*?\//g;
+  const newRegex = /=(s[0-9]|w[0-9]|h[0-9]|c|d|p|k|no|nu).*?(\/|\s)/g;
+  //Recommended nomenclature p k no nu
   if(evt.url){
-    return evt.url.replace("s72","w320-h160")
+    if(evt.url.match(oldRegex)){
+      return evt.url.replace(oldRegex,"/w320-h160-p-k-no-nu/")
+    }else{
+      return evt.url.replace(newRegex,"/w320-h160-p-k-no-nu/")
+    }
   }else {
     return evt
   }
@@ -30,7 +38,6 @@ const retrieveTitle = ( evt ) => {
 
 //Retrieve label
 const retrieveCategories = ( evt ) => {
-
   const labelTerms = [ ...( evt.map( e => e.term ) ).filter( e => isNaN( parseInt(e) ) ) ];
   return labelTerms
 
@@ -50,15 +57,22 @@ const retrieveDescription = ( evt ) => {
   divElement.innerHTML = evt;
   const text = divElement.innerText;
   if( text ){
-    return `${text.substring(1, 141)}${text.length > 140 && '...'}`
+    return `${text.substring(1, 141)}${text.length > 140 ? '...' : ''}`
   }
   return dummyDescription
 }
 
 //Retrieve Thumbnail
 const filterThumbnailImages = ( evt ) => {
+  const oldRegex = /\/(s[0-9]|w[0-9]|h[0-9]|c|d|-rw|p|k|no|nu).*?\//g;
+  const newRegex = /=(s[0-9]|w[0-9]|h[0-9]|c|d|p|k|no|nu).*?(\/|\s)/g;
+  //Eliminate p k no nu for c to sqaure
   if(evt.url){
-    return evt.url.replace("s72","w72-h72")
+    if(evt.url.match(oldRegex)){
+      return evt.url.replace(oldRegex,"/s72-c-k-no-nu/")
+    }else{
+      return evt.url.replace(newRegex,"/s72-c-k-no-nu/")
+    }
   }else {
     return evt
   }
@@ -138,9 +152,9 @@ export function PlanBasic01Products () {
                             variants:   [
                               {
                                 vDiscount:    0,
-                                vName:        '',
+                                vName:        dummyVariant,
                                 vPicture:     '',
-                                vPrice:       retrievePrice(post.category ? post.category : dummyPrice),
+                                vPrice:       retrievePrice(post.category ? post.category : [{'term': dummyPrice}]),
                                 vQuantity:    1
                               }
                             ],
