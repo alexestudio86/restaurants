@@ -21,11 +21,13 @@ export async function getBasicData () {
 export async function getPremiumData () {
     //The follow reques is made for make multiple request in the same time
     try {
-        const generalData   = await fetch(`${BLOGGER_URI}/${ import.meta.env.VITE_BLOG_ID }/?key=${ import.meta.env.VITE_API_KEY }`);
-        const {name, description} = await generalData.json();
-        const postsData   = await fetch(`${BLOGGER_URI}/${ import.meta.env.VITE_BLOG_ID }/posts?key=${ import.meta.env.VITE_API_KEY }`);
-        const {items, nextPageToken} = await postsData.json();
-        return { name, description, items, nextPageToken }
+        const getPosts   = await fetch(`https://${ import.meta.env.VITE_BLOG_NAME }.blogspot.com/feeds/posts/full?alt=json&max-results=50`);
+        const {feed: feedPost} = await getPosts.json();
+        const {title, subtitle, entry:posts} = feedPost;
+        const getPages   = await fetch(`https://${ import.meta.env.VITE_BLOG_NAME }.blogspot.com/feeds/pages/full?alt=json`);
+        const {feed: feedPages} = await getPages.json();
+        const {entry: pages} = feedPages;
+        return { title, subtitle, posts, pages }
     } catch (error) {
         console.log(error)
     }

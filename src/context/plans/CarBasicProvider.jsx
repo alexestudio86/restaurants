@@ -46,7 +46,7 @@ export function useTotalItemsContext () {
   return useContext(totalItemsContext)
 }
 
-export function CarProvider ( {children} ) {
+export function CarBasicProvider ( {children} ) {
 
   //Update Car
   const [car, setCar] = useState( JSON.parse(localStorage.getItem('car')) || []  );

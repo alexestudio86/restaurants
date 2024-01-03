@@ -18,8 +18,8 @@ export function PlanPremium01Navbar () {
 
     return (
         <nav className="sticky-top">
-            <div className="w3-row p-0 container">
-                <div className="w3-bar w3-blue-gray">
+            <div className="w3-row p-0">
+                <div className="w3-bar w3-black">
                     <div className="w3-bar-item">
                         <a className="w3-button w3-wide text-uppercase" href="#home">Home</a>
                     </div>

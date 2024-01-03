@@ -57,7 +57,7 @@ export const rutas = createBrowserRouter([
                                         path:       '',
                                         element:    <PlanPremiumHomeView />,
                                     },{
-                                        path:       'id',
+                                        path:       ':id',
                                         element:    <PlansLayout />,
                                         children:   [
                                             {

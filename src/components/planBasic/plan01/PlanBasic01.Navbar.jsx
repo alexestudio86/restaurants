@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from "react";
 import { navElements } from "./planBasic01.NavElements";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useTotalItemsContext } from '../../../context/plans/CarBasicProvider';

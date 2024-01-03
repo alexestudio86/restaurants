@@ -1,4 +1,5 @@
-import Placeholder from '../../assets/general/General.Placeholder-web.jpg'
+import Placeholder from '../../assets/general/General.Placeholder-web.jpg';
+import basic01 from '../../assets/general/package-options/basic-01.png'
 
 export const packagesOptions = [
     {
@@ -21,7 +22,7 @@ export const packagesOptions = [
             {
                 subtitle:   'Diseño 01',
                 subPath:    'option-01',
-                picture:    Placeholder
+                picture:    basic01
             },                {
                 subtitle:   'Diseño 02',
                 subPath:    'option-02',
