@@ -5,7 +5,7 @@ import { BLOGGER_URI } from "../../db.js";
 export async function getBasicData () {
     //The follow reques is made for make multiple request in the same time
     try {
-        const getPosts   = await fetch(`https://www.blogger.com/feeds/${ import.meta.env.VITE_BLOG_ID }/posts/full?alt=json&max-results=50`);
+        const getPosts   = await fetch(`https://www.blogger.com/feeds/${ import.meta.env.VITE_BLOG_ID }/posts/full&max-results=50?alt=json`);
         const {feed: feedPost} = await getPosts.json();
         const {title, subtitle, entry:posts} = feedPost;
         const getPages   = await fetch(`https://www.blogger.com/feeds/${ import.meta.env.VITE_BLOG_ID }/pages/full?alt=json`);

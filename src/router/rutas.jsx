@@ -76,5 +76,5 @@ export const rutas = createBrowserRouter([
         ]
     }
 ],{
-    basename: '/restaurantes'
+    basename: '/restaurants'
 })
